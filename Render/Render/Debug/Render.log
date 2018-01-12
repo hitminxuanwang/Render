@@ -1,0 +1,37 @@
+﻿DXUTgui.obj : error LNK2019: unresolved external symbol _D3DCompile@44 referenced in function "public: long __thiscall CDXUTDialogResourceManager::OnD3D11CreateDevice(struct ID3D11Device *,struct ID3D11DeviceContext *)" (?OnD3D11CreateDevice@CDXUTDialogResourceManager@@QAEJPAUID3D11Device@@PAUID3D11DeviceContext@@@Z)
+DXUTgui.obj : error LNK2019: unresolved external symbol _ScriptStringAnalyse@52 referenced in function "private: long __thiscall CUniBuffer::Analyse(void)" (?Analyse@CUniBuffer@@AAEJXZ)
+DXUTgui.obj : error LNK2019: unresolved external symbol _ScriptStringFree@4 referenced in function "public: __thiscall CUniBuffer::~CUniBuffer(void)" (??1CUniBuffer@@QAE@XZ)
+DXUTgui.obj : error LNK2019: unresolved external symbol _ScriptString_pcOutChars@4 referenced in function "public: void __thiscall CUniBuffer::GetNextItemPos(int,int *)" (?GetNextItemPos@CUniBuffer@@QAEXHPAH@Z)
+DXUTgui.obj : error LNK2019: unresolved external symbol _ScriptString_pLogAttr@4 referenced in function "public: void __thiscall CUniBuffer::GetNextItemPos(int,int *)" (?GetNextItemPos@CUniBuffer@@QAEXHPAH@Z)
+DXUTgui.obj : error LNK2019: unresolved external symbol _ScriptStringCPtoX@16 referenced in function "public: bool __thiscall CUniBuffer::CPtoX(int,bool,int *)" (?CPtoX@CUniBuffer@@QAE_NH_NPAH@Z)
+DXUTgui.obj : error LNK2019: unresolved external symbol _ScriptStringXtoCP@16 referenced in function "public: bool __thiscall CUniBuffer::XtoCP(int,int *,int *)" (?XtoCP@CUniBuffer@@QAE_NHPAH0@Z)
+DXUTgui.obj : error LNK2019: unresolved external symbol _ScriptApplyDigitSubstitution@12 referenced in function "private: long __thiscall CUniBuffer::Analyse(void)" (?Analyse@CUniBuffer@@AAEJXZ)
+ImeUi.obj : error LNK2019: unresolved external symbol _GetFileVersionInfoSizeA@8 referenced in function "unsigned long __cdecl GetImeId(unsigned int)" (?GetImeId@@YAKI@Z)
+ImeUi.obj : error LNK2019: unresolved external symbol _GetFileVersionInfoA@16 referenced in function "unsigned long __cdecl GetImeId(unsigned int)" (?GetImeId@@YAKI@Z)
+ImeUi.obj : error LNK2019: unresolved external symbol _VerQueryValueA@16 referenced in function "unsigned long __cdecl GetImeId(unsigned int)" (?GetImeId@@YAKI@Z)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmGetDefaultIMEWnd@4 referenced in function "void __cdecl ImeUi_ToggleLanguageBar(int)" (?ImeUi_ToggleLanguageBar@@YAXH@Z)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmGetIMEFileNameA@12 referenced in function "unsigned long __cdecl GetImeId(unsigned int)" (?GetImeId@@YAKI@Z)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmIsIME@4 referenced in function "void __cdecl CheckToggleState(void)" (?CheckToggleState@@YAXXZ)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmSimulateHotKey@8 referenced in function "void __cdecl ImeUi_SetState(unsigned long)" (?ImeUi_SetState@@YAXK@Z)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmGetContext@4 referenced in function "void __cdecl CheckToggleState(void)" (?CheckToggleState@@YAXXZ)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmReleaseContext@8 referenced in function "void __cdecl CheckToggleState(void)" (?CheckToggleState@@YAXXZ)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmAssociateContext@8 referenced in function "void __cdecl ImeUi_EnableIme(bool)" (?ImeUi_EnableIme@@YAX_N@Z)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmGetCompositionStringW@16 referenced in function "bool __cdecl ImeUi_Initialize(struct HWND__ *,bool)" (?ImeUi_Initialize@@YA_NPAUHWND__@@_N@Z)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmSetCompositionStringW@24 referenced in function "void __cdecl ImeUi_FinalizeString(bool)" (?ImeUi_FinalizeString@@YAX_N@Z)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmGetCandidateListW@16 referenced in function "bool __cdecl ImeUi_Initialize(struct HWND__ *,bool)" (?ImeUi_Initialize@@YA_NPAUHWND__@@_N@Z)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmGetConversionStatus@12 referenced in function "void __cdecl CheckToggleState(void)" (?CheckToggleState@@YAXXZ)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmSetConversionStatus@12 referenced in function "long __cdecl ImeUi_ProcessMessage(struct HWND__ *,unsigned int,unsigned int,long &,bool *)" (?ImeUi_ProcessMessage@@YAJPAUHWND__@@IIAAJPA_N@Z)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmGetOpenStatus@4 referenced in function "void __cdecl CheckToggleState(void)" (?CheckToggleState@@YAXXZ)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmSetOpenStatus@8 referenced in function "void __cdecl ImeUi_SetState(unsigned long)" (?ImeUi_SetState@@YAXK@Z)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmNotifyIME@16 referenced in function "void __cdecl ImeUi_FinalizeString(bool)" (?ImeUi_FinalizeString@@YAX_N@Z)
+ImeUi.obj : error LNK2019: unresolved external symbol _ImmGetVirtualKey@4 referenced in function "bool __cdecl ImeUi_IgnoreHotKey(struct tagMSG const *)" (?ImeUi_IgnoreHotKey@@YA_NPBUtagMSG@@@Z)
+SDKmisc.obj : error LNK2019: unresolved external symbol _D3DCompileFromFile@36 referenced in function "long __stdcall DXUTCompileFromFile(wchar_t const *,struct _D3D_SHADER_MACRO const *,char const *,char const *,unsigned int,unsigned int,struct ID3D10Blob * *)" (?DXUTCompileFromFile@@YGJPB_WPBU_D3D_SHADER_MACRO@@PBD2IIPAPAUID3D10Blob@@@Z)
+Game.obj : error LNK2019: unresolved external symbol _D3D11CreateDeviceAndSwapChain@48 referenced in function "private: long __thiscall Game::CreateDevice(void)" (?CreateDevice@Game@@AAEJXZ)
+Mesh3D.obj : error LNK2019: unresolved external symbol _D3DX11CreateShaderResourceViewFromFileW@24 referenced in function "public: virtual void __thiscall Mesh3D::LoadContent(class Game *)" (?LoadContent@Mesh3D@@UAEXPAVGame@@@Z)
+PixelShader.obj : error LNK2019: unresolved external symbol _D3DX11CompileFromFileW@44 referenced in function "public: static class std::unique_ptr<class PixelShader,struct std::default_delete<class PixelShader> > __cdecl PixelShader::CompileShader(struct ID3D11Device *,wchar_t const *)" (?CompileShader@PixelShader@@SA?AV?$unique_ptr@VPixelShader@@U?$default_delete@VPixelShader@@@std@@@std@@PAUID3D11Device@@PB_W@Z)
+VertexShader.obj : error LNK2001: unresolved external symbol _D3DX11CompileFromFileW@44
+../../src/lib\d3dcompiler.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'X86'
+../../src/lib\d3dx11d.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'X86'
+../../src/lib\dxerr.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'X86'
+../../src/lib\dxguid.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'X86'
+D:\Render\Render\Debug\Render.exe : fatal error LNK1120: 31 unresolved externals
