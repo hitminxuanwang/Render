@@ -4,6 +4,10 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "ConstantBuffer.h"
+
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
+
 struct Mesh3DConstantBuffer
 {
 	XMMATRIX World;
@@ -15,7 +19,7 @@ struct Mesh3DConstantBuffer
 class Mesh3D :public GameComponent
 {
 public:
-	Mesh3D(LPCWSTR modelFilename, LPCWSTR cubemapFilename);
+	Mesh3D(LPCWSTR modelFilename, LPCWSTR cubemapFilename,Vector3 pos, Vector3 rotation, Vector3 scale);
 	~Mesh3D();
 	virtual void LoadContent(Game* game);
 	virtual void Render(Game* game);

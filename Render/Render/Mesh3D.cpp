@@ -8,10 +8,11 @@ struct SimpleVertex
 	XMFLOAT3 Pos;
 	XMFLOAT2 Tex;
 };
-Mesh3D::Mesh3D(LPCWSTR modelFilename, LPCWSTR cubemapFilename)
+Mesh3D::Mesh3D(LPCWSTR modelFilename, LPCWSTR cubemapFilename,Vector3 pos, Vector3 rotation, Vector3 scale)
 {
 	this->modelFilename = modelFilename;
 	this->cubemapFilename = cubemapFilename;
+	this->worldMatrix *= Matrix::CreateScale(scale)*Matrix::CreateTranslation(pos);
 }
 void Mesh3D::CreateModel(Game *game)
 {
@@ -140,7 +141,7 @@ void Mesh3D::LoadContent(Game* game)
 	//D3DX11CreateShaderResourceViewFromFile(device, L"../Media//seafloor.dds", NULL, NULL, &textureMap, NULL);
 	//DX::ThrowIfFailed(CreateDDSTextureFromFile(device, L"..\\Media\\IrradianceMap.dds", nullptr, &irradianceCubemap));
 	//ID3D11ShaderResourceView* irradianceCubemap;
-	CreateDDSTextureFromFile(device, L"..\\Media\\Headgear.dds", nullptr, &textureMap);
+	CreateDDSTextureFromFile(device, L"..\\Media\\texture.dds", nullptr, &textureMap);
 	D3D11_SAMPLER_DESC sampDesc;
 	ZeroMemory(&sampDesc, sizeof(sampDesc));
 	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -156,21 +157,37 @@ void Mesh3D::LoadContent(Game* game)
 void Mesh3D::Render(Game* game)
 {
 	auto context = game->GetImmediateContext();
+	auto commonStates = game->GetCommonStates();
 	auto camera = game->GetCamera();
 
+	//Matrix trans=Matrix::CreateTranslation(Vector3(1.0f,2.0f,3.0f));
+	this->model->Draw(context,*commonStates,this->worldMatrix, Matrix::Identity, Matrix::Identity,false,
+		[&]() {
+		this->constantBuffer.Data.World = XMMatrixTranspose(this->worldMatrix);
+		this->constantBuffer.Data.View = XMMatrixTranspose(camera->GetView());
+		this->constantBuffer.Data.Projection = XMMatrixTranspose(camera->GetProjection());
+		this->constantBuffer.ApplyChanges(context);
+		this->constantBuffer.SetVS(context);
+		this->constantBuffer.SetPS(context);
+		this->vertexShader->Set(context);
+		this->pixelShader->Set(context);
+		context->PSSetShaderResources(0, 1, &textureMap);
+		context->PSSetSamplers(0, 1, &samplerLinear);
+		context->IASetInputLayout(this->inputLayout.get());
+	});
 
-	this->constantBuffer.Data.World = XMMatrixTranspose(this->worldMatrix);
-	this->constantBuffer.Data.View = XMMatrixTranspose(camera->GetView());
-	this->constantBuffer.Data.Projection = XMMatrixTranspose(camera->GetProjection());
-	this->constantBuffer.ApplyChanges(context);
-	this->constantBuffer.SetVS(context);
-	this->constantBuffer.SetPS(context);
-	this->vertexShader->Set(context);
-	this->pixelShader->Set(context);
-	context->PSSetShaderResources(0,1,&textureMap);
-	context->PSSetSamplers(0, 1, &samplerLinear);
-	context->IASetInputLayout(this->inputLayout.get());
-	context->DrawIndexed(36, 0, 0);
+	//this->constantBuffer.Data.World = XMMatrixTranspose(this->worldMatrix);
+	//this->constantBuffer.Data.View = XMMatrixTranspose(camera->GetView());
+	//this->constantBuffer.Data.Projection = XMMatrixTranspose(camera->GetProjection());
+	//this->constantBuffer.ApplyChanges(context);
+	//this->constantBuffer.SetVS(context);
+	//this->constantBuffer.SetPS(context);
+	//this->vertexShader->Set(context);
+	//this->pixelShader->Set(context);
+	//context->PSSetShaderResources(0,1,&textureMap);
+	//context->PSSetSamplers(0, 1, &samplerLinear);
+	//context->IASetInputLayout(this->inputLayout.get());
+	//context->DrawIndexed(36, 0, 0);
 	// Present the information rendered to the back buffer to the front buffer (the screen)
 	//Present(0, 0);
 }

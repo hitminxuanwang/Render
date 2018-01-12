@@ -40,6 +40,10 @@ public:
 	{
 		return renderTargetSRV.Get();
 	}
+	CommonStates * GetCommonStates()
+	{
+		return commonStates.get();;
+	}
 
 private:
 

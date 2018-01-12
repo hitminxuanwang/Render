@@ -26,7 +26,7 @@ Camera::Camera(Vector3 eyePos,Vector3 lookAt, CD3D11_VIEWPORT viewPort, HWND hwn
 	// Lets rotate the camera 180 degrees to start off with.
 	rotation.y = XM_PI;
 	this->eyePos = eyePos;
-	this->lookAt = lookAt;
+	this->lookAt = eyePos-lookAt;
 	this->upVector = Vector3::Up;
 	this->screenCenter.x = viewPort.Width / 2.0f;
 	this->screenCenter.y = viewPort.Height / 2.0f;

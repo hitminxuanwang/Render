@@ -162,6 +162,7 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseGeometric.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -174,10 +175,12 @@
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameComponent.h" />
+    <ClInclude Include="BaseGeometric.h" />
     <ClInclude Include="headers.h" />
     <ClInclude Include="Mesh3D.h" />
     <ClInclude Include="Mesh3DEffectFactory.h" />
     <ClInclude Include="PixelShader.h" />
+    <ClInclude Include="snowman.h" />
     <ClInclude Include="VertexShader.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,3 +1,7 @@
 ﻿  Game.cpp
+d:\render\render\render\game.cpp(186): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\render\render\render\game.cpp(187): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\render\render\render\game.cpp(188): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\render\render\render\game.cpp(189): warning C4305: 'argument': truncation from 'double' to 'float'
   Render.vcxproj -> D:\Render\Render\x64\Debug\Render.exe
   Render.vcxproj -> D:\Render\Render\x64\Debug\Render.pdb (Full PDB)

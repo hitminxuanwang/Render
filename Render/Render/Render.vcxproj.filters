@@ -57,6 +57,9 @@
     <ClCompile Include="Mesh3D.cpp">
       <Filter>Framework\Components</Filter>
     </ClCompile>
+    <ClCompile Include="BaseGeometric.cpp">
+      <Filter>Framework\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -82,6 +85,12 @@
       <Filter>Framework\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Mesh3DEffectFactory.h">
+      <Filter>Framework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseGeometric.h">
+      <Filter>Framework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="snowman.h">
       <Filter>Framework\Components</Filter>
     </ClInclude>
   </ItemGroup>

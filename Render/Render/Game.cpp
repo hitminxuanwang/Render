@@ -1,6 +1,7 @@
 #include "headers.h"
 #include "Game.h"
 #include "Mesh3D.h"
+#include "BaseGeometric.h"
 
 using Microsoft::WRL::ComPtr;
 
@@ -51,6 +52,36 @@ void Game::Present()
 
 HRESULT Game::CreateDevice()
 {
+//	UINT creationFlags = 0;
+//#ifdef _DEBUG
+//	creationFlags |= D3D11_CREATE_DEVICE_DEBUG;
+//#endif // _DEBUG
+//	static const D3D_FEATURE_LEVEL featureLevels[] =
+//	{
+//		// TODO: Modify for supported Direct3D feature levels (see code below related to 11.1 fallback handling)
+//		D3D_FEATURE_LEVEL_11_1,
+//		D3D_FEATURE_LEVEL_11_0,
+//		D3D_FEATURE_LEVEL_10_1,
+//		D3D_FEATURE_LEVEL_10_0,
+//		D3D_FEATURE_LEVEL_9_3,
+//		D3D_FEATURE_LEVEL_9_2,
+//		D3D_FEATURE_LEVEL_9_1,
+//	};
+//	// Create the DX11 API device object, and get a corresponding context.
+//	HRESULT hr = D3D11CreateDevice(
+//		nullptr,                                // specify null to use the default adapter
+//		D3D_DRIVER_TYPE_HARDWARE,
+//		nullptr,                                // leave as nullptr unless software device
+//		creationFlags,                          // optionally set debug and Direct2D compatibility flags
+//		featureLevels,                          // list of feature levels this app can support
+//		_countof(featureLevels),                // number of entries in above list
+//		D3D11_SDK_VERSION,                      // always set this to D3D11_SDK_VERSION
+//		d3dDevice.ReleaseAndGetAddressOf(),   // returns the Direct3D device created
+//		&featureLevel,                        // returns feature level of device created
+//		d3dContext.ReleaseAndGetAddressOf()   // returns the device immediate context
+//	);
+
+
 	HRESULT hr = S_OK;
 	RECT rc;
 	GetClientRect(hwnd, &rc);
@@ -92,7 +123,8 @@ HRESULT Game::CreateDevice()
 		D3D_DRIVER_TYPE g_driverType = driverTypes[driverTypeIndex];
 		hr = D3D11CreateDeviceAndSwapChain(NULL, g_driverType, NULL, createDeviceFlags, featureLevels, numFeatureLevels,
 			D3D11_SDK_VERSION, &sd, &swapChain, &d3dDevice, &featureLevel, &d3dContext);
-		if (SUCCEEDED(hr)) break;
+		if (SUCCEEDED(hr)) 
+			break;
 	}
 	if (FAILED(hr)) return hr;
 	//create a render target view
@@ -148,10 +180,14 @@ void Game::CreateResources()
 	CD3D11_VIEWPORT viewPort(0.0f, 0.0f, static_cast<float>(backBufferWidth), static_cast<float>(backBufferHeight));
 	d3dContext->RSSetViewports(1, &viewPort);
 	commonStates.reset(new CommonStates(d3dDevice.Get()));
-	this->camera.reset(new Camera(Vector3(0, 3.0f, -10.0f),Vector3(0.0f,0.0f,0.0f),viewPort, hwnd));
+	this->camera.reset(new Camera(Vector3(0, 1.0f, -5.0f),Vector3(0.0f,0.0f,0.0f),viewPort, hwnd));
 	// Load the resources for each of the components.
 	
-	this->gameComponents.push_back(new Mesh3D(L"../Media//sphere.sdkmesh",L"CubeMap"));
+	this->gameComponents.push_back(new Mesh3D(L"../Media//sphere.sdkmesh",L"CubeMap",Vector3(0,0,0),Vector3::Zero,(2.0/3.0f)*Vector3::One));
+	this->gameComponents.push_back(new Mesh3D(L"../Media//sphere.sdkmesh", L"CubeMap",Vector3(0,1.6,0),Vector3::Zero,0.5*Vector3::One));
+	this->gameComponents.push_back(new BaseGeometric(Vector3(-1.24, 1.24, 0), Vector3(0,0,3.1415f/6.0f), Vector3::One));
+	this->gameComponents.push_back(new BaseGeometric(Vector3(1.24, 1.24, 0), Vector3(0, 0, -3.1415f / 6.0f), Vector3::One));
+	
 
 	for (auto item = gameComponents.cbegin(); item != gameComponents.cend(); ++item)
 	{
