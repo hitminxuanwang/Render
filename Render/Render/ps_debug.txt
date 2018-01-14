@@ -1,1 +1,1 @@
-error X3501: 'ps_main': entrypoint not found
+D:\Render\Render\Media\shaders\geometric_pixelshader.hlsl(12,22): error X3018: invalid subscript 'dir'

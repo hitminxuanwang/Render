@@ -60,6 +60,9 @@
     <ClCompile Include="BaseGeometric.cpp">
       <Filter>Framework\Components</Filter>
     </ClCompile>
+    <ClCompile Include="SnowMan.cpp">
+      <Filter>Framework\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -90,7 +93,10 @@
     <ClInclude Include="BaseGeometric.h">
       <Filter>Framework\Components</Filter>
     </ClInclude>
-    <ClInclude Include="snowman.h">
+    <ClInclude Include="SnowMan.h">
+      <Filter>Framework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowManEffectFactory.h">
       <Filter>Framework\Components</Filter>
     </ClInclude>
   </ItemGroup>

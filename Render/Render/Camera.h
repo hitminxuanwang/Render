@@ -6,7 +6,7 @@ using namespace DirectX::SimpleMath;
 class Camera {
 public:
 	Camera(Vector3 eyePos, CD3D11_VIEWPORT viewPort, HWND hwnd);
-	Camera(Vector3 eyePos, Vector3 lookAt, CD3D11_VIEWPORT viewPort, HWND hwnd);
+	Camera(Vector3 eyePos, Vector3 lookAt,Vector3 up,CD3D11_VIEWPORT viewPort, HWND hwnd);
 	~Camera();
 	//void Update(HWND hwnd,float elapsedTime);
 	//void HandleInput(HWND hwnd,float elapsedTime);
@@ -32,8 +32,7 @@ private:
 	Vector3			eyePos;
 	Vector3			lookAt;
 	Vector3			upVector = Vector3(0.f, 1.f, 0.f);
-	Vector3			forward = Vector3(0.f, 0.f, -1.f);
-	Vector3			right = Vector3(1.f, 0.f, 0.f);
+
 
 	POINT			screenCenter;
 	float			moveSpeed = 100.0f;

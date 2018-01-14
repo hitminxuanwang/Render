@@ -168,6 +168,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh3D.cpp" />
     <ClCompile Include="PixelShader.cpp" />
+    <ClCompile Include="SnowMan.cpp" />
     <ClCompile Include="VertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -180,7 +181,8 @@
     <ClInclude Include="Mesh3D.h" />
     <ClInclude Include="Mesh3DEffectFactory.h" />
     <ClInclude Include="PixelShader.h" />
-    <ClInclude Include="snowman.h" />
+    <ClInclude Include="SnowMan.h" />
+    <ClInclude Include="SnowManEffectFactory.h" />
     <ClInclude Include="VertexShader.h" />
   </ItemGroup>
   <ItemGroup>

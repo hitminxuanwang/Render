@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Mesh3D.h"
 #include "BaseGeometric.h"
+#include "SnowMan.h"
 
 using Microsoft::WRL::ComPtr;
 
@@ -80,7 +81,8 @@ HRESULT Game::CreateDevice()
 //		&featureLevel,                        // returns feature level of device created
 //		d3dContext.ReleaseAndGetAddressOf()   // returns the device immediate context
 //	);
-
+	DXGI_FORMAT backBufferFormat = DXGI_FORMAT_B8G8R8A8_UNORM;
+	DXGI_FORMAT depthBufferFormat = (featureLevel >= D3D_FEATURE_LEVEL_10_0) ? DXGI_FORMAT_D32_FLOAT : DXGI_FORMAT_D16_UNORM;
 
 	HRESULT hr = S_OK;
 	RECT rc;
@@ -136,6 +138,62 @@ HRESULT Game::CreateDevice()
 	if (FAILED(hr)) return hr;
 	d3dContext->OMSetRenderTargets(1, &renderTargetView, NULL);
 
+
+
+	CD3D11_TEXTURE2D_DESC depthStencilDesc(depthBufferFormat, width, height, 1, 1, D3D11_BIND_DEPTH_STENCIL, D3D11_USAGE_DEFAULT, 0U, 8);
+
+	ComPtr<ID3D11Texture2D> depthStencil;
+	d3dDevice->CreateTexture2D(&depthStencilDesc, nullptr, depthStencil.GetAddressOf());
+
+	CD3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc(D3D11_DSV_DIMENSION_TEXTURE2DMS);
+
+	d3dDevice->CreateDepthStencilView(depthStencil.Get(), &depthStencilViewDesc, &depthStencilView);
+	/*
+	ID3D11DepthStencilState*    depthStencilStateNoStencil = NULL;
+	D3D11_DEPTH_STENCIL_DESC depthStencilDescNoStencil = {
+		TRUE,                           // BOOL DepthEnable;
+		D3D11_DEPTH_WRITE_MASK_ALL,     // D3D11_DEPTH_WRITE_MASK DepthWriteMask;
+		D3D11_COMPARISON_LESS_EQUAL,    // D3D11_COMPARISON_FUNC DepthFunc;
+		FALSE,                          // BOOL StencilEnable;
+		0,                              // UINT8 StencilReadMask;
+		0,                              // UINT8 StencilWriteMask;
+		{                               // D3D11_DEPTH_STENCILOP_DESC FrontFace;
+			D3D11_STENCIL_OP_KEEP,      // D3D11_STENCIL_OP StencilFailOp;
+			D3D11_STENCIL_OP_KEEP,      // D3D11_STENCIL_OP StencilDepthFailOp;
+			D3D11_STENCIL_OP_KEEP,      // D3D11_STENCIL_OP StencilPassOp;
+			D3D11_COMPARISON_NEVER,     // D3D11_COMPARISON_FUNC StencilFunc;
+		},
+		{                               // D3D11_DEPTH_STENCILOP_DESC BackFace;
+			D3D11_STENCIL_OP_KEEP,      // D3D11_STENCIL_OP StencilFailOp;
+			D3D11_STENCIL_OP_KEEP,      // D3D11_STENCIL_OP StencilDepthFailOp;
+			D3D11_STENCIL_OP_KEEP,      // D3D11_STENCIL_OP StencilPassOp;
+			D3D11_COMPARISON_NEVER,     // D3D11_COMPARISON_FUNC StencilFunc;
+		},
+	};
+	d3dDevice->CreateDepthStencilState(
+		&depthStencilDescNoStencil,
+		&depthStencilStateNoStencil);*/
+
+
+	UINT backBufferWidth = std::max<UINT>(rc.right - rc.left, 1);
+	UINT backBufferHeight = std::max<UINT>(rc.bottom - rc.top, 1);
+	//DXGI_FORMAT backBufferFormat = DXGI_FORMAT_B8G8R8A8_UNORM;
+	//DXGI_FORMAT depthBufferFormat = (featureLevel >= D3D_FEATURE_LEVEL_10_0) ? DXGI_FORMAT_D32_FLOAT : DXGI_FORMAT_D16_UNORM;
+	CD3D11_VIEWPORT viewPort(0.0f, 0.0f, static_cast<float>(backBufferWidth), static_cast<float>(backBufferHeight));
+	d3dContext->RSSetViewports(1, &viewPort);
+	CommonStates * states = new CommonStates(d3dDevice.Get());
+	commonStates.reset(states);
+
+	this->camera.reset(new Camera(Vector3(0, 1.5, -3), Vector3(0, 1.5, 1), Vector3::Up, viewPort, hwnd));
+	//d3dContext->OMSetDepthStencilState(commonStates->DepthDefault(), 0);
+	//d3dContext->RSSetState(commonStates->Wireframe());
+
+	auto samplerState = commonStates->LinearWrap();
+	d3dContext->PSSetSamplers(0, 1, &samplerState);
+
+
+
+	/*
 	// Create depth stencil texture
 	D3D11_TEXTURE2D_DESC descDepth;
 	ZeroMemory(&descDepth, sizeof(descDepth));
@@ -143,7 +201,7 @@ HRESULT Game::CreateDevice()
 	descDepth.Height = height;
 	descDepth.MipLevels = 1;
 	descDepth.ArraySize = 1;
-	descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	descDepth.Format = depthBufferFormat;
 	descDepth.SampleDesc.Count = 1;
 	descDepth.SampleDesc.Quality = 0;
 	descDepth.Usage = D3D11_USAGE_DEFAULT;
@@ -158,36 +216,42 @@ HRESULT Game::CreateDevice()
 	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
 	ZeroMemory(&descDSV, sizeof(descDSV));
 	descDSV.Format = descDepth.Format;
-	descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;
 	descDSV.Texture2D.MipSlice = 0;
-	hr = d3dDevice->CreateDepthStencilView(depthStencil, &descDSV, &depthStencilView);
+	hr = d3dDevice->CreateDepthStencilView(depthStencil, &descDSV, &depthStencilView);*/
+	/*ID3D11RasterizerState *state;
+	D3D11_RASTERIZER_DESC RasterizerDescNoCull = {
+		D3D11_FILL_SOLID,   // D3D11_FILL_MODE FillMode;
+		D3D11_CULL_NONE,    // D3D11_CULL_MODE CullMode;
+		TRUE,               // BOOL FrontCounterClockwise;
+		0,                  // INT DepthBias;
+		0,                  // FLOAT DepthBiasClamp;
+		0,                  // FLOAT SlopeScaledDepthBias;
+		TRUE,              // BOOL DepthClipEnable;
+		FALSE,              // BOOL ScissorEnable;
+		FALSE,               // BOOL MultisampleEnable;
+		FALSE,              // BOOL AntialiasedLineEnable;
+	};
+	d3dDevice->CreateRasterizerState(&RasterizerDescNoCull, &state);
 	d3dContext->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 	if (FAILED(hr))
 		return hr;
+
+	d3dContext->RSSetState(state);*/
 	return S_OK;
 
 }
 void Game::CreateResources()
 {
-	HRESULT hr = S_OK;
-	RECT rc;
-	GetWindowRect(hwnd, &rc);
 
-	UINT backBufferWidth = std::max<UINT>(rc.right - rc.left, 1);
-	UINT backBufferHeight = std::max<UINT>(rc.bottom - rc.top, 1);
-	DXGI_FORMAT backBufferFormat = DXGI_FORMAT_B8G8R8A8_UNORM;
-	DXGI_FORMAT depthBufferFormat = (featureLevel >= D3D_FEATURE_LEVEL_10_0) ? DXGI_FORMAT_D32_FLOAT : DXGI_FORMAT_D16_UNORM;
-	CD3D11_VIEWPORT viewPort(0.0f, 0.0f, static_cast<float>(backBufferWidth), static_cast<float>(backBufferHeight));
-	d3dContext->RSSetViewports(1, &viewPort);
-	commonStates.reset(new CommonStates(d3dDevice.Get()));
-	this->camera.reset(new Camera(Vector3(0, 1.0f, -5.0f),Vector3(0.0f,0.0f,0.0f),viewPort, hwnd));
+	//this->camera.reset(new Camera(Vector3(0,3, 0),Vector3(0.0f,0.0f,0.0f),viewPort, hwnd));
 	// Load the resources for each of the components.
 	
-	this->gameComponents.push_back(new Mesh3D(L"../Media//sphere.sdkmesh",L"CubeMap",Vector3(0,0,0),Vector3::Zero,(2.0/3.0f)*Vector3::One));
-	this->gameComponents.push_back(new Mesh3D(L"../Media//sphere.sdkmesh", L"CubeMap",Vector3(0,1.6,0),Vector3::Zero,0.5*Vector3::One));
-	this->gameComponents.push_back(new BaseGeometric(Vector3(-1.24, 1.24, 0), Vector3(0,0,3.1415f/6.0f), Vector3::One));
-	this->gameComponents.push_back(new BaseGeometric(Vector3(1.24, 1.24, 0), Vector3(0, 0, -3.1415f / 6.0f), Vector3::One));
-	
+	//this->gameComponents.push_back(new Mesh3D(L"../Media//sphere.sdkmesh",L"CubeMap",Vector3(0,0,0),Vector3::Zero,(2.0/3.0f)*Vector3::One));
+	//this->gameComponents.push_back(new Mesh3D(L"../Media//sphere.sdkmesh", L"CubeMap",Vector3(0,1.6,0),Vector3::Zero,0.5*Vector3::One));
+	//this->gameComponents.push_back(new BaseGeometric(Vector3(-1.0, 1.0, 0), Vector3(0,0,3.1415f/6.0f), Vector3::One));
+	//this->gameComponents.push_back(new BaseGeometric(Vector3(1.0, 1.0, 0), Vector3(0, 0, -3.1415f / 6.0f), Vector3::One));
+	this->gameComponents.push_back(new SnowMan(Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3::One));
 
 	for (auto item = gameComponents.cbegin(); item != gameComponents.cend(); ++item)
 	{
