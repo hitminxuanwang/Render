@@ -1,0 +1,12 @@
+D:\Render\Render\Media\shaders\skybox_vertexshader.hlsl(23,36): error X3004: undeclared identifier 'world'
+D:\Render\Render\Media\shaders\skybox_vertexshader.hlsl(23,16): error X3013: 'mul': intrinsic function does not take 2 parameters
+D:\Render\Render\Media\shaders\skybox_vertexshader.hlsl(23,16): error X3013: Possible intrinsic functions are:
+D:\Render\Render\Media\shaders\skybox_vertexshader.hlsl(23,16): error X3013:     mul(float, float)
+D:\Render\Render\Media\shaders\skybox_vertexshader.hlsl(23,16): error X3013:     mul(float, floatK)
+D:\Render\Render\Media\shaders\skybox_vertexshader.hlsl(23,16): error X3013:     mul(float, floatLxK)
+D:\Render\Render\Media\shaders\skybox_vertexshader.hlsl(23,16): error X3013:     mul(floatM, float)
+D:\Render\Render\Media\shaders\skybox_vertexshader.hlsl(23,16): error X3013:     mul(floatM, floatM)
+D:\Render\Render\Media\shaders\skybox_vertexshader.hlsl(23,16): error X3013:     mul(floatM, floatMxK)
+D:\Render\Render\Media\shaders\skybox_vertexshader.hlsl(23,16): error X3013:     mul(floatNxM, float)
+D:\Render\Render\Media\shaders\skybox_vertexshader.hlsl(23,16): error X3013:     mul(floatNxM, floatM)
+D:\Render\Render\Media\shaders\skybox_vertexshader.hlsl(23,16): error X3013:     mul(floatNxM, floatMxK)

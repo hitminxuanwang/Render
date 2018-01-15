@@ -22,7 +22,7 @@ public:
 	Mesh3D(LPCWSTR modelFilename, LPCWSTR cubemapFilename,Vector3 pos, Vector3 rotation, Vector3 scale);
 	~Mesh3D();
 	virtual void LoadContent(Game* game);
-	virtual void Render(Game* game);
+	virtual void Render(Game* game,XMMATRIX rotation_with_matrix);
 	void CreateModel(Game* game);
 private:
 	LPCWSTR												modelFilename;
@@ -34,6 +34,7 @@ private:
 	std::unique_ptr<ID3D11InputLayout>					inputLayout;
 	//std::unique_ptr<ID3D11ShaderResourceView>			irradianceMap;
 	ID3D11ShaderResourceView *							textureMap;
+	//ID3D11ShaderResourceView *							treeTextureMap;
 
 	ConstantBuffer <Mesh3DConstantBuffer>				constantBuffer;
 	ID3D11Buffer*										vertexbuffer=NULL;

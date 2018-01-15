@@ -22,7 +22,7 @@ public:
 	SnowMan(Vector3 pos, Vector3 rotation, Vector3 scale);
 	~SnowMan() {};
 	virtual void LoadContent(Game *game);
-	virtual void Render(Game* game);
+	virtual void Render(Game* game,XMMATRIX rotation_with_time);
 private:
 	std::unique_ptr<DirectX::GeometricPrimitive>	body;
 	std::unique_ptr<DirectX::GeometricPrimitive>	head;
@@ -31,6 +31,7 @@ private:
 	std::unique_ptr<DirectX::GeometricPrimitive>	nose;
 	std::unique_ptr<DirectX::GeometricPrimitive>	leftEye;
 	std::unique_ptr<DirectX::GeometricPrimitive>	rightEye;
+	std::unique_ptr<DirectX::GeometricPrimitive>	mouse;
 	Matrix											worldMatrix = XMMatrixIdentity();
 	Matrix											bodyTransform = XMMatrixIdentity();
 	Matrix											headTransform = XMMatrixIdentity();
@@ -39,6 +40,7 @@ private:
 	Matrix											noseTransform = XMMatrixIdentity();
 	Matrix											leftEyeTransform = XMMatrixIdentity();
 	Matrix											rightEyeTransform = XMMatrixIdentity();
+	Matrix											mouseTransform = XMMatrixIdentity();
 	std::unique_ptr<VertexShader>					vertexShader;
 	std::unique_ptr<PixelShader>					pixelShader;
 	ConstantBuffer<SnowManConstantBuffer>			constantBuffer;
@@ -47,5 +49,7 @@ private:
 	std::unique_ptr<ID3D11ShaderResourceView>		bodyTextureMap;
 	std::unique_ptr<ID3D11ShaderResourceView>		armTextureMap;
 	std::unique_ptr<ID3D11ShaderResourceView>		noseTextureMap;
+	std::unique_ptr<ID3D11ShaderResourceView>		eyeTextureMap;
+	std::unique_ptr<ID3D11ShaderResourceView>		mouseTextureMap;
 	IEffect *										myeffect;
 };

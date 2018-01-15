@@ -57,10 +57,16 @@
     <ClCompile Include="Mesh3D.cpp">
       <Filter>Framework\Components</Filter>
     </ClCompile>
-    <ClCompile Include="BaseGeometric.cpp">
+    <ClCompile Include="SnowMan.cpp">
       <Filter>Framework\Components</Filter>
     </ClCompile>
-    <ClCompile Include="SnowMan.cpp">
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>Framework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadRenderer.cpp">
+      <Filter>Framework\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadPlane.cpp">
       <Filter>Framework\Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -90,13 +96,19 @@
     <ClInclude Include="Mesh3DEffectFactory.h">
       <Filter>Framework\Components</Filter>
     </ClInclude>
-    <ClInclude Include="BaseGeometric.h">
-      <Filter>Framework\Components</Filter>
-    </ClInclude>
     <ClInclude Include="SnowMan.h">
       <Filter>Framework\Components</Filter>
     </ClInclude>
     <ClInclude Include="SnowManEffectFactory.h">
+      <Filter>Framework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>Framework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadRenderer.h">
+      <Filter>Framework\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadPlane.h">
       <Filter>Framework\Components</Filter>
     </ClInclude>
   </ItemGroup>

@@ -162,12 +162,14 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BaseGeometric.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh3D.cpp" />
     <ClCompile Include="PixelShader.cpp" />
+    <ClCompile Include="QuadRenderer.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
+    <ClCompile Include="QuadPlane.cpp" />
     <ClCompile Include="SnowMan.cpp" />
     <ClCompile Include="VertexShader.cpp" />
   </ItemGroup>
@@ -176,11 +178,13 @@
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameComponent.h" />
-    <ClInclude Include="BaseGeometric.h" />
     <ClInclude Include="headers.h" />
     <ClInclude Include="Mesh3D.h" />
     <ClInclude Include="Mesh3DEffectFactory.h" />
     <ClInclude Include="PixelShader.h" />
+    <ClInclude Include="QuadRenderer.h" />
+    <ClInclude Include="SkyBox.h" />
+    <ClInclude Include="QuadPlane.h" />
     <ClInclude Include="SnowMan.h" />
     <ClInclude Include="SnowManEffectFactory.h" />
     <ClInclude Include="VertexShader.h" />

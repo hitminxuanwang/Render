@@ -1,1 +1,1 @@
-D:\Render\Render\Media\shaders\geometric_pixelshader.hlsl(12,22): error X3018: invalid subscript 'dir'
+D:\Render\Render\Media\shaders\pixelshader.hlsl(13,23): error X3018: invalid subscript 'xyz'

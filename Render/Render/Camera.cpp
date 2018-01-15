@@ -12,7 +12,7 @@ Camera::Camera(Vector3 eyePos, CD3D11_VIEWPORT viewPort, HWND hwnd)
 	this->screenCenter.x = viewPort.Width / 2.0f;
 	this->screenCenter.y = viewPort.Height / 2.0f;
 	this->view= XMMatrixLookAtLH(XMLoadFloat3(&eyePos), XMLoadFloat3(&lookAt), XMLoadFloat3(&upVector));
-	this->projection = XMMatrixPerspectiveFovLH(XM_PIDIV2, viewPort.Width / (FLOAT)viewPort.Height, 0.01f, 100.0f);
+	this->projection = XMMatrixPerspectiveFovLH(XM_PIDIV2, viewPort.Width / (FLOAT)viewPort.Height, 0.1f, 100.0f);
 }
 Camera::Camera(Vector3 eyePos,Vector3 lookAt,Vector3 up, CD3D11_VIEWPORT viewPort, HWND hwnd)
 {

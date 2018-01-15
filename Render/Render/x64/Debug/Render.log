@@ -1,12 +1,2 @@
-﻿  SnowMan.cpp
-d:\render\render\render\snowman.cpp(18): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\render\render\render\snowman.cpp(19): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\render\render\render\snowman.cpp(24): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\render\render\render\snowman.cpp(31): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\render\render\render\snowman.cpp(38): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\render\render\render\snowman.cpp(58): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\render\render\render\snowman.cpp(59): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\render\render\render\snowman.cpp(60): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\render\render\render\snowman.cpp(61): warning C4305: 'argument': truncation from 'double' to 'float'
-  Render.vcxproj -> D:\Render\Render\x64\Debug\Render.exe
+﻿  Render.vcxproj -> D:\Render\Render\x64\Debug\Render.exe
   Render.vcxproj -> D:\Render\Render\x64\Debug\Render.pdb (Full PDB)

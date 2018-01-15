@@ -66,6 +66,7 @@ private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				swapChain;
 	ID3D11RenderTargetView*								renderTargetView;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	renderTargetSRV;
+
 	//Microsoft::WRL::ComPtr<ID3D11DepthStencilView>		depthStencilView;
 	//Microsoft::WRL::ComPtr<ID3D11Texture2D>				depthStencil;
 	ID3D11Texture2D*							depthStencil = NULL;

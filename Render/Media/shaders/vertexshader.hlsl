@@ -3,12 +3,12 @@ cbuffer ConstantBuffer : register(b0)
 	matrix World;
 	matrix View;
 	matrix Projection;
-	float3 CameraPos;
 }
 struct VS_INPUT
 {
 	float4 Pos :POSITION;
 	float2 Tex :TEXCOORD0;
+	//float3 Normal:NORMAL;
 };
 struct PS_INPUT
 {
