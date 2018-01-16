@@ -4,6 +4,7 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "ConstantBuffer.h"
+#include "Effects.h"
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -41,4 +42,10 @@ private:
 	ID3D11Buffer*										indicesbuffer = NULL;
 	ID3D11SamplerState*									samplerLinear = NULL;
 	Matrix												worldMatrix = XMMatrixIdentity();
+
+	std::unique_ptr<DirectX::CommonStates> m_states;
+	std::unique_ptr<DirectX::EffectFactory> m_fxFactory;
+	std::unique_ptr<DirectX::Model> m_model;
+	std::vector<std::shared_ptr<DirectX::IEffect>> m_modelNormal;
+
 };

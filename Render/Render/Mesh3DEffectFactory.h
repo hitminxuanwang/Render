@@ -11,7 +11,7 @@ public:
 
 	Mesh3DEffectFactory(_In_ ID3D11Device* device, std::wstring filename) : EffectFactory(device)
 	{
-		this->directory = L"..\\Media\\";
+		this->directory = L"..\\Media\\model\\";
 	}
 
 	virtual void __cdecl CreateTexture(_In_z_ const WCHAR* name, _In_opt_ ID3D11DeviceContext* deviceContext, _Outptr_ ID3D11ShaderResourceView** textureView) override

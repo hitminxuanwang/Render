@@ -32,6 +32,7 @@ void QuadPlane::LoadContent(Game *game)
 
 	this->inputLayout.reset(meshLayout);
 
+
 	CreateDDSTextureFromFile(device, L"..\\Media\\snow_ground.dds", nullptr, &textureMap);
 	D3D11_SAMPLER_DESC sampDesc;
 	ZeroMemory(&sampDesc, sizeof(sampDesc));
@@ -50,6 +51,7 @@ void QuadPlane::Render(Game *game,XMMATRIX matrix)
 	auto context=game->GetImmediateContext();
 	auto camera = game->GetCamera();
 	auto device = game->GetDevice();
+	auto commonstate = game->GetCommonStates();
 	context->IASetInputLayout(inputLayout.get());
 
 	D3D11_BUFFER_DESC bd;
@@ -100,7 +102,7 @@ void QuadPlane::Render(Game *game,XMMATRIX matrix)
 	//context->IASetIndexBuffer(indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 	context->VSSetConstantBuffers(0, 1, &cbuffer);
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
+	context->RSSetState(commonstate->CullClockwise());
 	context->DrawIndexed(6, 0, 0);
 
 }

@@ -1,1 +1,0 @@
-D:\Render\Render\Media\shaders\pixelshader.hlsl(13,23): error X3018: invalid subscript 'xyz'

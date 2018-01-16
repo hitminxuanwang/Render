@@ -3,69 +3,46 @@
 #include "Mesh3D.h"
 #include "Mesh3DEffectFactory.h"
 
-//struct SimpleVertex
-//{
-//	XMFLOAT3 Pos;
-//	XMFLOAT2 Tex;
-//};
 Mesh3D::Mesh3D(LPCWSTR modelFilename, LPCWSTR cubemapFilename,Vector3 pos, Vector3 rotation, Vector3 scale)
 {
 	this->modelFilename = modelFilename;
 	this->cubemapFilename = cubemapFilename;
-	this->worldMatrix *= Matrix::CreateScale(scale)*Matrix::CreateTranslation(pos);
+	this->worldMatrix *= Matrix::CreateScale(scale)*Matrix::CreateRotationX(rotation.x)
+		*Matrix::CreateRotationY(rotation.y)*Matrix::CreateRotationZ(rotation.z)*
+		Matrix::CreateTranslation(pos);
+
 }
 void Mesh3D::CreateModel(Game *game)
 {
 	auto device = game->GetDevice();
 	auto context = game->GetImmediateContext();
-
-	//IEffectFactory* effectFactory = new Mesh3DEffctFactory(device, std::wstring(this->modelname));
-	IEffectFactory *effectFactory = new Mesh3DEffectFactory(device, std::wstring(this->modelFilename));
+	m_states = std::make_unique<CommonStates>(device);
+	IEffectFactory * effectFactory = new Mesh3DEffectFactory(device, std::wstring(this->modelFilename));
 	this->model = Model::CreateFromSDKMESH(device,this->modelFilename,*effectFactory);
 
-	int x = 1;
 }
 
 void Mesh3D::LoadContent(Game* game)
 {
 	auto device = game->GetDevice();
 	auto context = game->GetImmediateContext();
-	// Load the shaders from the compiled CSO files. We're going to override
-	// the default shaders created in the effect factory with the following shaders.
-
-
-
-
-	this->vertexShader = VertexShader::CompileShader(device, L"..//Media//shaders//vertexshader.hlsl");
-	this->pixelShader = PixelShader::CompileShader(device, L"..//Media//shaders//pixelshader.hlsl");
-
-	// Specifiy what model data we want to access within the shader.
-	/*const D3D11_INPUT_ELEMENT_DESC inputLayoutDesc[] =
+	CreateModel(game);
+	this->vertexShader = VertexShader::CompileShader(device, L"..//Media//shaders//geometric_vertexshader.hlsl");
+	this->pixelShader = PixelShader::CompileShader(device, L"..//Media//shaders//geometric_pixelshader.hlsl");
+	const D3D11_INPUT_ELEMENT_DESC inputLayoutDesc[] =
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
-
 	ID3D11InputLayout* meshLayout;
 
 	// Create the input layout that we'll use to pass the model data to the shader.
-	device->CreateInputLayout(inputLayoutDesc, ARRAYSIZE(inputLayoutDesc),
+	HRESULT hr = device->CreateInputLayout(inputLayoutDesc, ARRAYSIZE(inputLayoutDesc),
 		this->vertexShader->GetShaderBlob()->GetBufferPointer(), this->vertexShader->GetShaderBlob()->GetBufferSize(), &meshLayout);
 
 	this->inputLayout.reset(meshLayout);
-	context->IASetInputLayout(meshLayout);
-	*/
-
-	CreateModel(game);
 	this->constantBuffer.Initialize(device);
-	// The shader constant buffer allows us to pass
-	// variables that change each frame to the shader.
-	//this->constantBuffer.Initialize(device);
-	//D3DX11CreateShaderResourceViewFromFile(device, L"../Media//seafloor.dds", NULL, NULL, &textureMap, NULL);
-	//DX::ThrowIfFailed(CreateDDSTextureFromFile(device, L"..\\Media\\IrradianceMap.dds", nullptr, &irradianceCubemap));
-	//ID3D11ShaderResourceView* irradianceCubemap;
-	//CreateDDSTextureFromFile(device, L"..\\Media\\texture.dds", nullptr, &textureMap);
 	D3D11_SAMPLER_DESC sampDesc;
 	ZeroMemory(&sampDesc, sizeof(sampDesc));
 	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -84,40 +61,28 @@ void Mesh3D::Render(Game* game,XMMATRIX ratation_with_time)
 	auto commonStates = game->GetCommonStates();
 	auto camera = game->GetCamera();
 
-	//Matrix trans=Matrix::CreateTranslation(Vector3(1.0f,2.0f,3.0f));
-	//this->model->Draw(context, *commonStates, this->worldMatrix, Matrix::Identity, Matrix::Identity, false);
-	this->model->Draw(context,*commonStates,this->worldMatrix, Matrix::Identity, Matrix::Identity,false,
-		[&]() {
+	//context->RSSetState(commonStates->CullCounterClockwise());
+	this->model->Draw(context, *commonStates, this->worldMatrix, camera->GetView(), camera->GetProjection(), false, [&]
+	{
 		this->constantBuffer.Data.World = XMMatrixTranspose(this->worldMatrix);
 		this->constantBuffer.Data.View = XMMatrixTranspose(camera->GetView());
 		this->constantBuffer.Data.Projection = XMMatrixTranspose(camera->GetProjection());
+
 		this->constantBuffer.ApplyChanges(context);
 		this->constantBuffer.SetVS(context);
 		this->constantBuffer.SetPS(context);
 		this->vertexShader->Set(context);
 		this->pixelShader->Set(context);
-		//context->PSSetShaderResources(0, 1, &textureMap);
-		//context->PSSetSamplers(0, 1, &samplerLinear);
-		//context->IASetInputLayout(this->inputLayout.get());
+		context->PSSetSamplers(0, 1, &samplerLinear);
+		context->IASetInputLayout(this->inputLayout.get());
+		context->RSSetState(commonStates->CullCounterClockwise());
 		float alpha[] = { 0,0,0,0 };
-		context->OMSetBlendState(commonStates->AlphaBlend(),alpha, 0xFFFFFFFF);
-		context->RSSetState(commonStates->CullNone());
-	});
-
-	//this->constantBuffer.Data.World = XMMatrixTranspose(this->worldMatrix);
-	//this->constantBuffer.Data.View = XMMatrixTranspose(camera->GetView());
-	//this->constantBuffer.Data.Projection = XMMatrixTranspose(camera->GetProjection());
-	//this->constantBuffer.ApplyChanges(context);
-	//this->constantBuffer.SetVS(context);
-	//this->constantBuffer.SetPS(context);
-	//this->vertexShader->Set(context);
-	//this->pixelShader->Set(context);
-	//context->PSSetShaderResources(0,1,&textureMap);
-	//context->PSSetSamplers(0, 1, &samplerLinear);
-	//context->IASetInputLayout(this->inputLayout.get());
-	//context->DrawIndexed(36, 0, 0);
-	// Present the information rendered to the back buffer to the front buffer (the screen)
-	//Present(0, 0);
+		context->OMSetBlendState(commonStates->AlphaBlend(), alpha, 0xFFFFFFFF);
+	});/*
+	this->model->Draw(context, *commonStates, this->worldMatrix, camera->GetView(), camera->GetProjection(), false, [&]
+	{
+		context->RSSetState(commonStates->CullCounterClockwise());
+	});*/
 }
 
 Mesh3D::~Mesh3D()

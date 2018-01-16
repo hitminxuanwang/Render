@@ -278,5 +278,5 @@ void SnowMan::Render(Game* game,XMMATRIX rotation_with_matrix)
 		context->IASetInputLayout(this->inputLayout.get());
 		context->RSSetState(commonStates->CullClockwise());
 	});
-
+	context->RSSetState(commonStates->CullNone());
 }

@@ -1,7 +1,7 @@
 
 SamplerState samLinear : register(s0);
 //Texture2D	textureMap  : register(t0);
-TextureCube CubeMap : register(t0);;
+TextureCube CubeMap : register(t0);
 struct PS_INPUT
 {
 	float4 Pos: SV_POSITION;

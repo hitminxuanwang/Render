@@ -25,7 +25,7 @@ std::unique_ptr<VertexShader> VertexShader::CompileShader(ID3D11Device *device, 
 	dwShaderFlags |= D3DCOMPILE_DEBUG;
 #endif
 	ID3DBlob* pErrorBlob;
-	HRESULT hr=D3DX11CompileFromFile(filename, NULL, NULL, "main", "vs_5_0",
+	HRESULT hr=D3DX11CompileFromFile(filename, NULL, NULL, "main", "vs_4_0",
 		dwShaderFlags, 0, NULL, &shaderBlob , &pErrorBlob, NULL);
 	if (FAILED(hr))
 	{

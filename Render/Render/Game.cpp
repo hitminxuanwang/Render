@@ -137,7 +137,7 @@ HRESULT Game::CreateDevice()
 	CommonStates * states = new CommonStates(d3dDevice.Get());
 	commonStates.reset(states);
 
-	this->camera.reset(new Camera(Vector3(0,3 , -9), Vector3(0, 3, 1), Vector3::Up, viewPort, hwnd));
+	this->camera.reset(new Camera(Vector3(-9,3 , -13), Vector3(0, 3, 0), Vector3::Up, viewPort, hwnd));
 
 	auto samplerState = commonStates->LinearWrap();
 	d3dContext->PSSetSamplers(0, 1, &samplerState);
@@ -154,7 +154,10 @@ void Game::CreateResources()
 	this->gameComponents.push_back(new SnowMan(Vector3(3, 0, 3), Vector3(0, 0, 0), Vector3::One));
 	this->gameComponents.push_back(new SkyBox(L"..\\Media\\skybox.dds",1.0f));
 	this->gameComponents.push_back(new QuadPlane(pos, uv));
-	//this->gameComponents.push_back(new Mesh3D(L"..\\Media\\Tree.sdkmesh", L"..\\Media\\Cubemap.dds", Vector3(0, -3, -5), Vector3::Zero, 3*Vector3::One));
+	this->gameComponents.push_back(new Mesh3D(L"..\\Media\\model\\AL05y.sdkmesh", L"..\\Media\\Cubemap.dds", Vector3(0, 0, 10), Vector3(-3.14/2,0,0), 0.5*Vector3::One));
+	this->gameComponents.push_back(new Mesh3D(L"..\\Media\\model\\AL05y.sdkmesh", L"..\\Media\\Cubemap.dds", Vector3(10, 0, 10), Vector3(-3.14 / 2, 0, 0), 0.5*Vector3::One));
+	this->gameComponents.push_back(new Mesh3D(L"..\\Media\\model\\AL05y.sdkmesh", L"..\\Media\\Cubemap.dds", Vector3(-10, 0, 10), Vector3(-3.14 / 2, 0, 0), 0.5*Vector3::One));
+	this->gameComponents.push_back(new Mesh3D(L"..\\Media\\model\\AL05y.sdkmesh", L"..\\Media\\Cubemap.dds", Vector3(5, 0, 3), Vector3(-3.14 / 2, 0, 0), 0.5*Vector3::One));
 
 
 
