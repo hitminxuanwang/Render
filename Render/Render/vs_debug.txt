@@ -1,0 +1,1 @@
+D:\Render\Render\Media\shaders\skybox_vertexshader.hlsl(24,1): error X3000: syntax error: unexpected token 'PS_INPUT'

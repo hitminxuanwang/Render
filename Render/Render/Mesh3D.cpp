@@ -75,7 +75,7 @@ void Mesh3D::Render(Game* game,XMMATRIX ratation_with_time)
 		this->pixelShader->Set(context);
 		context->PSSetSamplers(0, 1, &samplerLinear);
 		context->IASetInputLayout(this->inputLayout.get());
-		context->RSSetState(commonStates->CullCounterClockwise());
+		context->RSSetState(commonStates->CullNone());
 		float alpha[] = { 0,0,0,0 };
 		context->OMSetBlendState(commonStates->AlphaBlend(), alpha, 0xFFFFFFFF);
 	});/*

@@ -154,10 +154,12 @@ void Game::CreateResources()
 	this->gameComponents.push_back(new SnowMan(Vector3(3, 0, 3), Vector3(0, 0, 0), Vector3::One));
 	this->gameComponents.push_back(new SkyBox(L"..\\Media\\skybox.dds",1.0f));
 	this->gameComponents.push_back(new QuadPlane(pos, uv));
+	this->gameComponents.push_back(new Mesh3D(L"..\\Media\\model\\SnowcoveredCottageOBJ.sdkmesh", L"..\\Media\\Cubemap.dds", Vector3(0, 0, 23), Vector3(0, 3.14 / 2 + 3.14, 0), 0.2*Vector3::One));
 	this->gameComponents.push_back(new Mesh3D(L"..\\Media\\model\\AL05y.sdkmesh", L"..\\Media\\Cubemap.dds", Vector3(0, 0, 10), Vector3(-3.14/2,0,0), 0.5*Vector3::One));
 	this->gameComponents.push_back(new Mesh3D(L"..\\Media\\model\\AL05y.sdkmesh", L"..\\Media\\Cubemap.dds", Vector3(10, 0, 10), Vector3(-3.14 / 2, 0, 0), 0.5*Vector3::One));
 	this->gameComponents.push_back(new Mesh3D(L"..\\Media\\model\\AL05y.sdkmesh", L"..\\Media\\Cubemap.dds", Vector3(-10, 0, 10), Vector3(-3.14 / 2, 0, 0), 0.5*Vector3::One));
 	this->gameComponents.push_back(new Mesh3D(L"..\\Media\\model\\AL05y.sdkmesh", L"..\\Media\\Cubemap.dds", Vector3(5, 0, 3), Vector3(-3.14 / 2, 0, 0), 0.5*Vector3::One));
+	
 
 
 

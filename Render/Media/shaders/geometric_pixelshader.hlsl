@@ -12,4 +12,5 @@ float4 main(PS_INPUT input) : SV_TARGET
 	return textureMap.Sample(samLinear, float2(input.Tex.x,input.Tex.y));
 	//return float4(input.dir.xyz*0.5+0.5,1);
 	//return float4(1.0f,1.0f,0.0f,1.0f);
+	//return float4(input.Tex,0.0f,0.7);
 }

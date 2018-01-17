@@ -16,6 +16,10 @@ struct PS_INPUT
 	float2 Tex : TEXCOORD0;
 	float3 dir : TEXCOORD1;
 };
+	matrix<float,4,4> trans={1.0f,0.0f,0.0f,0.0f,
+							0.0f,1.0f,0.0f,0.0f,
+							0.0f,0.0f,1.0f,0.0f,
+							0.0f,-0.5f,0.0f,1.0f,};
 
 PS_INPUT main(VS_INPUT input)
 {
@@ -23,6 +27,7 @@ PS_INPUT main(VS_INPUT input)
 	float4 camera=mul(float4(0,0,0,1),World);
 	output.Pos = mul(input.Pos, World);
 	output.dir=(output.Pos-camera).xyz;
+	//output.Pos=mul(output.Pos,trans);
 	output.Pos = mul(output.Pos, View);
 	output.Pos = mul(output.Pos, Projection);
     output.Pos=output.Pos.xyww;
